@@ -95,11 +95,9 @@ const SearchScreen = ({navigation}) => {
 
   const handleChanges = event => {
     const {name, value} = event;
-    const filteredValue = parseInt(value.replace(/[^0-9]/g, ''));
-
     setValues(prevState => ({
       ...prevState,
-      [name]: isNaN(filteredValue) ? '' : filteredValue,
+      [name]: value.replace(/[^0-9]/g, ''),
     }));
   };
 
@@ -113,7 +111,7 @@ const SearchScreen = ({navigation}) => {
     if (
       values.dotPair !== undefined &&
       values.dotPair !== '' &&
-      values.dotPair !== 0
+      values.dotPair !== '0'
     ) {
       const searchR = await getSearchData(host);
       setValues({});
@@ -124,10 +122,11 @@ const SearchScreen = ({navigation}) => {
     } else {
       setValues(prevState => ({
         ...prevState,
-        ['dotPair']: 0,
+        ['dotPair']: '0',
       }));
     }
   };
+  console.log(values);
   const getSearchData = async host => {
     return axios.get(host).then(res => res);
   };
@@ -140,7 +139,7 @@ const SearchScreen = ({navigation}) => {
         <Text
           style={[
             styles.customLabel,
-            values.dotPair === 0
+            values.dotPair === '0'
               ? styles.invalidLabel
               : values.dotPair === undefined || values.dotPair === ''
               ? styles.normalColor
@@ -151,7 +150,7 @@ const SearchScreen = ({navigation}) => {
         <CustomTextInput
           style={[
             styles.customInput,
-            values.dotPair === 0
+            values.dotPair === '0'
               ? styles.invalidInput
               : values.dotPair === undefined || values.dotPair === ''
               ? styles.normalColor
@@ -160,7 +159,7 @@ const SearchScreen = ({navigation}) => {
           type="number"
           name="dotPair"
           onChange={handleChanges}
-          value={values.dotPair.toString()}
+          value={values.dotPair}
           placeholder="dot pair"
         />
         <Layout style={styles.cableCountContainer}>
@@ -168,7 +167,7 @@ const SearchScreen = ({navigation}) => {
             <Text
               style={[
                 styles.customLabel,
-                values.startingPair === 0
+                values.startingPair === '0'
                   ? styles.invalidLabel
                   : values.startingPair === undefined ||
                     values.startingPair === ''
@@ -180,7 +179,7 @@ const SearchScreen = ({navigation}) => {
             <CustomTextInput
               style={[
                 styles.customInput,
-                values.startingPair === 0
+                values.startingPair === '0'
                   ? styles.invalidInput
                   : values.startingPair === undefined ||
                     values.startingPair === ''
@@ -190,7 +189,7 @@ const SearchScreen = ({navigation}) => {
               type="number"
               name="startingPair"
               onChange={handleChanges}
-              value={values.startingPair.toString()}
+              value={values.startingPair}
               placeholder="starting pair"
             />
           </Layout>
@@ -198,7 +197,7 @@ const SearchScreen = ({navigation}) => {
             <Text
               style={[
                 styles.customLabel,
-                values.endingPair === 0
+                values.endingPair === '0'
                   ? styles.invalidLabel
                   : values.endingPair === undefined || values.endingPair === ''
                   ? styles.normalColor
@@ -209,7 +208,7 @@ const SearchScreen = ({navigation}) => {
             <CustomTextInput
               style={[
                 styles.customInput,
-                values.endingPair === 0
+                values.endingPair === '0'
                   ? styles.invalidInput
                   : values.endingPair === undefined || values.endingPair === ''
                   ? styles.normalColor
@@ -218,44 +217,9 @@ const SearchScreen = ({navigation}) => {
               type="number"
               name="endingPair"
               onChange={handleChanges}
-              value={values.endingPair.toString()}
+              value={values.endingPair}
               placeholder="ending pair"
             />
-          </Layout>
-        </Layout>
-        <Layout style={styles.infoMessageContainer}>
-          <Layout style={styles.infoMessages}>
-            <Icon style={styles.infoIcon} fill="#8F9BB3" name="info-outline" />
-            <Text
-              style={[
-                styles.textlg,
-                values.dotPair === 0 ? styles.invalidLabel : styles.normalColor,
-              ]}>
-              {' '}
-              Only numbers are allowed!
-            </Text>
-          </Layout>
-          <Layout style={styles.infoMessages}>
-            <Icon style={styles.infoIcon} fill="#8F9BB3" name="info-outline" />
-            <Text
-              style={[
-                styles.textlg,
-                values.dotPair === 0 ? styles.invalidLabel : styles.normalColor,
-              ]}>
-              {' '}
-              Number 0 is not allowed!
-            </Text>
-          </Layout>
-          <Layout style={styles.infoMessages}>
-            <Icon style={styles.infoIcon} fill="#8F9BB3" name="info-outline" />
-            <Text
-              style={[
-                styles.textlg,
-                values.dotPair === 0 ? styles.invalidLabel : styles.normalColor,
-              ]}>
-              {' '}
-              Dot Pair number is required!
-            </Text>
           </Layout>
         </Layout>
         <Button

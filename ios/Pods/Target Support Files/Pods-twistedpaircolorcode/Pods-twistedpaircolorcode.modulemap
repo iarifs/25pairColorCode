@@ -1,0 +1,6 @@
+module Pods_twistedpaircolorcode {
+  umbrella header "Pods-twistedpaircolorcode-umbrella.h"
+
+  export *
+  module * { export * }
+}
